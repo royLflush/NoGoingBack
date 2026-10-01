@@ -5,7 +5,9 @@ export type Effect =
   | { type: "heal"; amount: number }
   | { type: "addItem"; item: string }
   | { type: "removeItem"; item: string }
-  | { type: "setFlag"; flag: string };
+  | { type: "setFlag"; flag: string }
+  | { type: "gainGold"; amount: number }
+  | { type: "loseGold"; amount: number };
 
 export function applyEffect(effect: Effect) {
   switch (effect.type) {
@@ -23,6 +25,12 @@ export function applyEffect(effect: Effect) {
       break;
     case "setFlag":
       state.flags[effect.flag] = true;
+      break;
+    case "gainGold":
+      state.gold += effect.amount;
+      break;
+    case "loseGold":
+      state.gold = Math.max(0, state.gold - effect.amount);
       break;
     default: {
       const unhandled: never = effect;

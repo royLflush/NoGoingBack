@@ -104,8 +104,30 @@ export const areas: Record<string, Area> = {
           effects: [{ type: "damage", amount: 2 }],
           result: "You cut your hand on a sharp stone and find nothing.",
         },
+                {
+          label: "Pick the lock on a side passage",
+          requires: { type: "classIs", classId: "thief" },
+          effects: [{ type: "setFlag", flag: "enteredVault" }],
+          result: "The lock gives way with a quiet click. Old habits.",
+        },
+        {
+          label: "Conjure a flame to light the way",
+          requires: { type: "classIs", classId: "mage" },
+          effects: [{ type: "setFlag", flag: "enteredVault" }],
+          result: "Your flame burns blue in the stale air below.",
+        },
+        {
+          label: "Pay a scavenger to guide you in",
+          requires: { type: "goldAtLeast", amount: 20 },
+          effects: [
+            { type: "loseGold", amount: 20 },
+            { type: "setFlag", flag: "enteredVault" },
+          ],
+          result: "The scavenger pockets your coin without meeting your eyes.",
+        },
       ],
     },
     exits: [],
   },
+  
 };

@@ -1,6 +1,9 @@
 import { state } from "./state";
+import type { ClassId } from "../content/classes";
 
 export type Condition =
+  | { type: "classIs"; classId: ClassId }
+  | { type: "goldAtLeast"; amount: number }
   | { type: "hasItem"; item: string }
   | { type: "hasFlag"; flag: string }
   | { type: "hpAtLeast"; amount: number }
@@ -10,6 +13,10 @@ export type Condition =
 
 export function checkCondition(condition: Condition): boolean {
   switch (condition.type) {
+    case "classIs":
+      return state.classId === condition.classId;
+    case "goldAtLeast":
+      return state.gold >= condition.amount;
     case "hasItem":
       return state.inventory.includes(condition.item);
     case "hasFlag":

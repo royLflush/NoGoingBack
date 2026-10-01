@@ -1,5 +1,6 @@
+import { classes } from "../content/classes";
 import { areas } from "../content/areas";
-import { state, moveTo } from "../logic/state";
+import { state, moveTo, startGame } from "../logic/state";
 import { checkCondition } from "../logic/conditions";
 import { applyEffects } from "../logic/effects";
 import type { Condition } from "../logic/conditions";
@@ -20,11 +21,34 @@ function isAvailable(requires?: Condition): boolean {
   return !requires || checkCondition(requires);
 }
 
+function renderClassSelect() {
+  areaName.textContent = "Who are you?";
+  status.textContent = "";
+  story.textContent = "Before the road, there was a life. Choose the one you are leaving behind.";
+  choices.replaceChildren();
+
+  for (const chosen of Object.values(classes)) {
+    addChoice(`${chosen.name}: ${chosen.description}`, () => {
+      startGame(chosen.id);
+      render();
+    });
+  }
+}
+
 export function render(message?: string) {
+  if (state.classId === null) {
+    renderClassSelect();
+    return;
+  }
+
   const area = areas[state.areaId];
+  const playerClass = classes[state.classId];
 
   areaName.textContent = area.name;
-  status.textContent = `HP: ${state.hp}   Items: ${state.inventory.join(", ") || "none"}`;
+  status.textContent =
+    `${playerClass.name}   HP: ${state.hp}   Gold: ${state.gold}   ` +
+    `Items: ${state.inventory.join(", ") || "none"}`;
+
 
   let text = area.description;
   if (message) {
