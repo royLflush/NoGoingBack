@@ -34,3 +34,11 @@ body {
 #choices button:hover {
   background: #333;
 }
+
+#story {
+  white-space: pre-line;
+}
+
+#status {
+  color: #999;
+}
