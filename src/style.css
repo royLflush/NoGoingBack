@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  background: #111;
+  color: #ddd;
+  font-family: Georgia, serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+#panel {
+  width: 800px;
+  box-sizing: border-box;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+}
+
+#choices button {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  background: #222;
+  color: #ddd;
+  border: 1px solid #555;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+#choices button:hover {
+  background: #333;
+}
